@@ -17,10 +17,6 @@ if __name__ == '__main__':
 		mun_esp_cod = []
 		mun_esp_nome = []
 	salvar_bool = input("Deseja salvar .csv independente de cada mes de cada municipio analisado [SIM, NAO]? ")
-	if salvar_bool.upper() == 'SIM':
-		salvar_bool = True
-	else:
-		salvar_bool = False
-	
+	salvar_bool = salvar_bool.upper() == 'SIM'
 	WS_CNES_Leitos(ano_inicio, ano_fim, mes_inicio, mes_fim, mun_esp_bool, mun_esp_cod, mun_esp_nome, salvar_bool)
 	

@@ -36,13 +36,13 @@ class WS_CNES_Leitos:
         self.municip_cod = municip_cod
         self.municip_nome = municip_nome
         self.salvar_mun = salvar_mun
-        
+
         def converter_comp_p_data(i):
             data = str(i)
             dia_ficcional = '20'
             ano_data = data[:4]
             mes_data = data[4:]
-            data_completa = dia_ficcional + '/' + mes_data + '/' + ano_data 
+            data_completa = f'{dia_ficcional}/' + mes_data + '/' + ano_data
             return data_completa
 
         def converter_comp_p_ano(i):
@@ -54,7 +54,7 @@ class WS_CNES_Leitos:
             data = str(i)
             mes_data = data[4:]
             return int(mes_data)
-        
+
         colunas_população = []
         competencias = []
         primeira_competencia = True
@@ -76,7 +76,7 @@ class WS_CNES_Leitos:
         nome_colunas_df_completo = nome_colunas_df + ['País', 'Estado', 'Município', 'Mesoregião', 'Regional de Saúde']
 
         path_armazenamento_raiz = './Leitos_CNES_PI'
-        path_armazenamento_mun = path_armazenamento_raiz + '/Municipios'
+        path_armazenamento_mun = f'{path_armazenamento_raiz}/Municipios'
         path_auxiliar = './temp_WSS_CNES'
         path_csv_munpi = 'MunicipiosPI.csv'
 
@@ -141,10 +141,7 @@ class WS_CNES_Leitos:
             for mun in municipios:
                 for i in range(self.ano_inicial, (self.ano_final+1)):
                     for j in range(self.mes_inicial, (self.mes_final+1)):
-                        if len(str(j)) < 2:
-                            mes = f'0{j}'
-                        else:
-                            mes = j
+                        mes = f'0{j}' if len(str(j)) < 2 else j
                         ano = f'{i}{mes}'
                         if primeira_competencia:
                             competencias.append(ano)
@@ -330,11 +327,7 @@ class WS_CNES_Leitos:
                         #print(e)
                         #print(f'Dataset: {nome_mun} - {converter_comp_p_mes(i)}/{converter_comp_p_ano(i)} - FALHOU')
 
-            #except(e):
-                #print(e)
-                #print(f'Municipio: {nome_mun} - FALHOU')
-
-        print('... Finalizando')   
+        print('... Finalizando')
         df_Leitos_CNES_PI_Completo.to_csv('./Leitos_CNES_PI/Leitos_CNES_PI_Completo.csv', index=False)
 
         print('<><><><><><><><><><><><><><><><><><><>')
